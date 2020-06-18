@@ -23,4 +23,26 @@ defmodule Memoria.Core do
     |> Enum.chunk_every(step_size)
   end
 
+  def erase(%{ schedule: [step|new_schedule], text: text}) do
+    new_text =
+      text
+      |> String.graphemes
+      |> Enum.with_index(1)
+      |> Enum.map(fn {character, index} ->
+        maybe_delete(character, index in step)
+      end)
+      |> Enum.join
+
+      %__MODULE__ {
+        text: new_text,
+        schedule: new_schedule
+      }
+  end
+
+  defp maybe_delete(_character, true), do: "_"
+  defp maybe_delete(character, false), do: character
+
+
+
+
 end
