@@ -4,24 +4,12 @@ defmodule Memoria.Core do
     schedule:   [],
   ]
 
-  def new_memoria(text, number_of_steps) do
+  def new_memoria(text, number_of_steps, test \\ false) do
     #constructor
     %__MODULE__ {
     text:       text,
-    schedule:   build_schedule(text, number_of_steps),
+    schedule:   build_schedule(text, number_of_steps, test),
   }
-  end
-
-  def build_schedule(text, number_of_steps) do
-    step_size =
-      text
-      |> String.length
-      |> Kernel./(number_of_steps)
-      |> ceil
-
-    (1..String.length(text))
-    |> Enum.shuffle
-    |> Enum.chunk_every(step_size)
   end
 
   def erase(%{ schedule: [step|new_schedule], text: text}) do
@@ -44,5 +32,19 @@ defmodule Memoria.Core do
   #helpers
   defp maybe_delete(_character, true), do: "_"
   defp maybe_delete(character, false), do: character
+  defp maybe_shuffle(list, true), do: list
+  defp maybe_shuffle(list, false), do: Enum.shuffle(list)
+  defp build_schedule(text, number_of_steps, test) do
+    #helper
+    step_size =
+      text
+      |> String.length
+      |> Kernel./(number_of_steps)
+      |> ceil
+
+    (1..String.length(text))
+    |> maybe_shuffle(test)
+    |> Enum.chunk_every(step_size)
+  end
 
 end
