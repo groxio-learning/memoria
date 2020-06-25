@@ -5,6 +5,7 @@ defmodule Memoria.Core do
   ]
 
   def new_memoria(text, number_of_steps) do
+    #constructor
     %__MODULE__ {
     text:       text,
     schedule:   build_schedule(text, number_of_steps),
@@ -24,6 +25,7 @@ defmodule Memoria.Core do
   end
 
   def erase(%{ schedule: [step|new_schedule], text: text}) do
+    #reducer
     new_text =
       text
       |> String.graphemes
@@ -39,10 +41,8 @@ defmodule Memoria.Core do
       }
   end
 
+  #helpers
   defp maybe_delete(_character, true), do: "_"
   defp maybe_delete(character, false), do: character
-
-
-
 
 end
