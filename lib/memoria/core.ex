@@ -30,7 +30,8 @@ defmodule Memoria.Core do
   end
 
   #helpers
-  defp maybe_delete(_character, true), do: "_"
+  defp maybe_delete(" ", true), do: " "
+  defp maybe_delete(_character, true), do: "-"
   defp maybe_delete(character, false), do: character
   defp maybe_shuffle(list, true), do: list
   defp maybe_shuffle(list, false), do: Enum.shuffle(list)
