@@ -1,4 +1,6 @@
 defmodule Memoria.Core do
+@not_erasable [" ", ",", "\n", ".", ";", ":", "'", "?", "!", "(", ")"]
+
   defstruct [
     text:       "",
     schedule:   [],
@@ -30,7 +32,7 @@ defmodule Memoria.Core do
   end
 
   #helpers
-  defp maybe_delete(" ", true), do: " "
+  defp maybe_delete(character, true) when character in @not_erasable, do: character
   defp maybe_delete(_character, true), do: "-"
   defp maybe_delete(character, false), do: character
   defp maybe_shuffle(list, true), do: list

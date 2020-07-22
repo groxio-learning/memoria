@@ -14,12 +14,12 @@ defmodule Memoria.CoreTest do
   end
 
   test "erase composes" do
-      Core.new_memoria("abc defgh", 3, true)
-      |> assert_key(:text, "abc defgh")
-      |> Core.erase |> assert_key(:text, "--- defgh")
-      |> Core.erase |> assert_key(:text, "--- --fgh")
+      Core.new_memoria("abc defg!", 3, true)
+      |> assert_key(:text, "abc defg!")
+      |> Core.erase |> assert_key(:text, "--- defg!")
+      |> Core.erase |> assert_key(:text, "--- --fg!")
       |> Core.erase
-      |> assert_key(:text, "--- -----")
+      |> assert_key(:text, "--- ----!")
   end
 
   defp assert_key(memoria, key, expected) do
